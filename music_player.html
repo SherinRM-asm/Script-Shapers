@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link href="main.css" type="text/css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a0a5d659b4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="media/dandelions.jpg" class="song_img">
+            <h1>Dandelions</h1>
+            <p>Ruth.B</p>
+
+            <audio id="song" >
+                <source src="media/Dandelions_320(PagalWorld).mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progress">
+            <div class="controls">
+                <div><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+                <div><i class="fa-solid fa-forward"></i></div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    let progress = document.getElementById("progress");
+    let song = document.getElementById("song");
+    let ctrlIcon = document.getElementById("ctrlIcon");
+    let isPlaying = false;
+
+    song.onloadedmetadata = function() {
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+    }
+
+    function playPause() {
+        if (isPlaying) {
+            song.pause();
+            ctrlIcon.classList.remove("fa-pause");
+            ctrlIcon.classList.add("fa-play");
+            isPlaying = false;
+        } else {
+            song.play();
+            ctrlIcon.classList.add("fa-pause");
+            ctrlIcon.classList.remove("fa-play");
+            isPlaying = true;
+        }
+    }
+
+    song.addEventListener("timeupdate", function() {
+        progress.value = song.currentTime;
+    });
+
+    progress.onchange = function() {
+        song.currentTime = progress.value;
+    }
+</script>
+
+</script>
+</body>
+</html>
